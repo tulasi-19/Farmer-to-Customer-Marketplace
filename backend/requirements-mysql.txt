@@ -1,0 +1,5 @@
+# Only needed when DB_ENGINE=mysql.
+# If mysqlclient fails to build on Windows, use PyMySQL instead:
+#   pip install pymysql   (and see the note in README -> "MySQL on Windows")
+-r requirements.txt
+mysqlclient==2.2.4

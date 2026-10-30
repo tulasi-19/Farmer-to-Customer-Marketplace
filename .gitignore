@@ -1,0 +1,24 @@
+# Secrets - never commit
+.env
+*.env
+!.env.example
+# Python / Django
+__pycache__/
+*.pyc
+venv/
+.venv/
+*.sqlite3
+*.sql
+backend/media/
+backend/private_media/
+backend/staticfiles/
+# ML artifacts (retrain locally; joblib files are scikit-learn-version specific)
+backend/ml_engine/saved_models/*.joblib
+backend/ml_engine/saved_models/*.json
+# Node
+node_modules/
+frontend/build/
+# OS / IDE
+.DS_Store
+.vscode/
+.idea/
