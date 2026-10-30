@@ -140,6 +140,7 @@ STORAGES = {
         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     },
 }
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 # PRIVATE media: KYC documents. No URL maps to this folder; files are only
 # streamed by an authenticated, permission-checked API view.
 PRIVATE_MEDIA_ROOT = BASE_DIR / 'private_media'
