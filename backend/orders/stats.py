@@ -10,6 +10,12 @@ from . import state
 from .models import OrderItem, Shipment
 
 LOW_STOCK_THRESHOLD = Decimal('10')
+TWO = Decimal('0.01')
+
+
+def _money(value):
+    """Sum() may return 60 on SQLite and 60.00 on MySQL; the API always returns 2 decimals."""
+    return str(Decimal(value or 0).quantize(TWO))
 
 
 def _month_keys(n=6):
@@ -60,10 +66,10 @@ def farmer_dashboard(farm):
         },
         'shipments_by_status': by_status,
         'to_fulfil': sum(by_status.get(s, 0) for s in (state.CONFIRMED, state.PROCESSING)),
-        'total_sales': str(total_sales),
-        'delivered_sales': str(delivered_sales),
-        'monthly_sales': [{'month': f'{y}-{m:02d}', 'total': str(v['total']), 'orders': v['orders']}
+        'total_sales': _money(total_sales),
+        'delivered_sales': _money(delivered_sales),
+        'monthly_sales': [{'month': f'{y}-{m:02d}', 'total': _money(v['total']), 'orders': v['orders']}
                           for (y, m), v in months.items()],
         'top_products': [{'name': t['product_name'], 'unit': t['unit'],
-                          'units': str(t['units']), 'revenue': str(t['revenue'])} for t in top],
+                          'units': str(Decimal(t['units']).quantize(TWO)), 'revenue': _money(t['revenue'])} for t in top],
     }
