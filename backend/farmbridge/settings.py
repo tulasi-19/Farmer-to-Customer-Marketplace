@@ -32,8 +32,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'cloudinary_storage',
     'django.contrib.staticfiles',
-
+    'cloudinary',
     # Third-party
     'rest_framework',
     'rest_framework_simplejwt',
@@ -131,6 +132,14 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 # PUBLIC media: product images and farm photos (served at /media/).
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
 # PRIVATE media: KYC documents. No URL maps to this folder; files are only
 # streamed by an authenticated, permission-checked API view.
 PRIVATE_MEDIA_ROOT = BASE_DIR / 'private_media'
