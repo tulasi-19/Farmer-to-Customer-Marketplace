@@ -1,7 +1,7 @@
 from django.conf import settings
-from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import include, path, re_path
+from django.views.static import serve
 from rest_framework_simplejwt.views import TokenRefreshView
 
 # All API routes live under /api/v1/ so the contract can evolve (v2) safely.
@@ -22,6 +22,7 @@ urlpatterns = [
     path('api/v1/', include(api_v1)),
 ]
 
-# Public media (product images). KYC documents are NOT here - see farms app.
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# Public media (product images, farm photos). KYC documents are NOT here - they live in
+# private_media/ and are only streamed by a permission-checked API view.
+# NOTE: Django's `serve` is fine for a demo; for real traffic use object storage (Cloudinary/S3).
+urlpatterns += [re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT})]
