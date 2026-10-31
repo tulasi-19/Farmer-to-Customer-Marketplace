@@ -225,5 +225,6 @@ LOGGING = {
     'handlers': {'console': {'class': 'logging.StreamHandler', 'formatter': 'simple'}},
     'loggers': {
         'orders': {'handlers': ['console'], 'level': 'INFO'},
+         'django.request': {'handlers': ['console'], 'level': 'ERROR', 'propagate': False},
     },
 }
