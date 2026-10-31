@@ -128,6 +128,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+# Let WhiteNoise find Django-admin CSS/JS even if collectstatic was not run
+WHITENOISE_USE_FINDERS = True
 
 # PUBLIC media: product images and farm photos (served at /media/).
 MEDIA_URL = '/media/'
